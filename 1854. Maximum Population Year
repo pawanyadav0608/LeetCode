@@ -1,28 +1,20 @@
-int maximumPopulation(int** logs, int logsSize, int* logsColSize) {
-    int life[101]={0};
-    for(int i=0;i<logsSize;i++){
-        int birth = logs[i][0] ;
-        int death = logs[i][1] ;
-        life[birth - 1950]++ ;
-        life[death - 1950]-- ;
-        
-    }
-    int maxpopulation = 0 ;
-    int maxYear = 1950 ;
-    int currentpopulation = 0 ;
+// Java Solution 
 
-    for(int i = 0 ; i < 101 ; i++){
-        currentpopulation += life[i] ;
-        int Year = 1950 + i ;
-        if(currentpopulation > maxpopulation){
-            maxpopulation = currentpopulation ;
-            maxYear = Year ;
+class Solution {
+    public int maximumPopulation(int[][] logs) {
+        int[] years = new int[101]; 
+        for (int[] log : logs) {
+            years[log[0] - 1950]++;     
+            years[log[1] - 1950]--;      
         }
-        else if(currentpopulation == maxpopulation){
-            (maxYear < Year)? maxYear : Year ;
+        int maxpop = 0, maxyear = 1950, currentpop = 0;
+        for (int i = 0; i < years.length; i++) {
+            currentpop += years[i];
+            if (currentpop > maxpop) {
+                maxpop = currentpop;
+                maxyear = 1950 + i;
+            }
         }
-
+        return maxyear;
     }
-    return maxYear ;
-    
-} 
+}
